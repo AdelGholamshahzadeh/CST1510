@@ -2,9 +2,9 @@
 RECORD CHECK  -  my version
 ===========================
 
-Name  :
-Lane  :  AI / Cyber / IT      (delete two)
-Date  :
+Name  : Adel Gholamshahzadeh
+Lane  :  AI 
+Date  : 8/11/2026
 
 Run it:   python template.py
 
@@ -14,38 +14,24 @@ Delete these instructions as you replace them with your code.
 
 import pandas as pd
 
-# ==================================================================== LOAD
-# 1. Read your data file with pd.read_csv(). Make your own CSV, header row
-#    plus at least 5 data rows: label,value,limit (or your lane's own field
-#    names - same shape, different words).
-
-df = None   # replace with pd.read_csv("your_file.csv")
-
-
-# ================================================================= PROCESS
-# 2. Add a "percent" column: (value / limit) * 100.
-#
-#    Typical and above: also add a "status" column using .apply() with a
-#    lambda - "OVER LIMIT" (100%+), "WARNING" (90%+), otherwise "OK".
-
-# your column(s) go here
+data = {
+    "labeL": ["Record-1","Record-2","Record-3","Record-4","Record-5"],
+    "value": [2,111,90,50,1],
+    "limit": [100,100,100,100,100]
+}
+data_df = pd.DataFrame(data)        #adding the created dictionary as a data frame
+data_file = data_df.to_csv("Record_Data.csv")   #saving it to a file as instructed
+df = pd.read_csv("Record_Data.csv")         #reading the file 
 
 
-# ================================================================== OUTPUT
-# 3. Print the DataFrame.
-#
-#    Threshold : print it as-is, with the percent column.
-#    Typical   : also filter to show only the rows that are not "OK", using a
-#                boolean condition in [] - not a loop.
-#    Excellent : also group by "status" and print a count per group, save
-#                the full DataFrame to a new CSV with .to_csv(), and save
-#                one bar chart of the counts per status.
-
-print(df)
+df["percent"] = (df.value / df.limit) * 100         #adding a percent column
+df["status"] = df["percent"].apply(
+    lambda x: "OVER LIMIT" if x >= 100 else "WARNING" if x >= 90 else "OK"  #adding a status column using the lambda function
+)
 
 
-# ==========================================================================
-# 4. Before you finish:
-#    [ ] Run it and check the percent/status columns by hand for one row
-#    [ ] Check you used & (not "and") if you combined more than one condition
-#    [ ] Check every column your code refers to actually exists - watch case
+print(df[(df["status"] == "OVER LIMIT") | (df["status"] == "WARNING")]) #printing with two conditions
+
+grouped = df.groupby(by= "status")      #grouping the data by status in alphabetical order
+print(grouped.value_counts())           #counting the unique values 
+
