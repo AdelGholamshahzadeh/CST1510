@@ -1,0 +1,5 @@
+server-01 , used=4 , total=23  
+server-02 ,     used= 90 ,            total = 20
+server-03    , used=20 , total=26  
+server-04 , used=40 , total=40  
+server-05   , used=10 , total=30     

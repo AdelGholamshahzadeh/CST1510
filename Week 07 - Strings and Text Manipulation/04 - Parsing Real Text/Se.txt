@@ -1,0 +1,3 @@
+serv-01   ,    used=59, total=100
+serv-05,used=100, total=100
+serv-23, used=5,                               total=100
